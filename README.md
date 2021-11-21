@@ -1,1 +1,1 @@
-# Human Intellgible Identifiers
+# Human Intelligible Identifiers
