@@ -12,6 +12,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 }
 
+kotlin {
+    explicitApi()
+}
+
 testing {
     suites {
         val test by getting(JvmTestSuite::class) {
