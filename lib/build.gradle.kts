@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.6.0"
+    kotlin("jvm") version "1.6.0"
     `java-library`
 }
 
@@ -8,8 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    kotlin("stdlib-jdk8")
 }
 
 kotlin {
