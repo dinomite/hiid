@@ -1,6 +1,7 @@
 package net.dinomite.hiid
 
-import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
 
 public data class HIID(private val identifier: String) {
     override fun toString(): String = identifier
@@ -36,16 +37,20 @@ private object Words {
         val eightsBuilder = mutableListOf<String>()
         val twelvesBuilder = mutableListOf<String>()
 
-        val resource = HIID::class.java.getResource("/wordlists/wikipedia-basic-english")
-        File(resource.toURI())
-            .readLines()
-            .drop(1)
-            .forEach { word ->
-                when (word.length) {
-                    4 -> foursBuilder.add(word)
-                    8 -> eightsBuilder.add(word)
-                    12 -> twelvesBuilder.add(word)
-                }
+        val wordlistsDir = HIID::class.java.getResource("/wordlists")
+        Files.walk(Path.of(wordlistsDir.toURI()))
+            .filter { item -> Files.isRegularFile(item) }
+            .forEach { path ->
+                path.toFile()
+                    .readLines()
+                    .drop(1)
+                    .forEach { word ->
+                        when (word.length) {
+                            4 -> foursBuilder.add(word)
+                            8 -> eightsBuilder.add(word)
+                            12 -> twelvesBuilder.add(word)
+                        }
+                    }
             }
 
         fours = foursBuilder.toList()
